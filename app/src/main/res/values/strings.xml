@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyCRUD_Native</string>
+    <string name="nama_pegawai">Nama Pegawai</string>
+    <string name="posisi">Posisi</string>
+    <string name="gajih">Gajih</string>
+    <string name="tambah_pegawai">Tambah Pegawai</string>
+    <string name="daftar_pegawai">Daftar Pegawai</string>
+    <string name="data_jabatan">Data Jabatan</string>
+</resources>
