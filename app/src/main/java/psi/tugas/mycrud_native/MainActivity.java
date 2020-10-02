@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -203,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onResume();
         loadPositions();
+        editText_Salary.setText("");
     }
 
     @Override
@@ -210,6 +212,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         if (view == button_Add)
             addEmployee();
+        else if (view == button_View)
+            startActivity(new Intent(this, Employee_Show_All.class));
     }
 
     @Override
@@ -260,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onNothingSelected(AdapterView<?> adapterView)
     {
-
+        //The interface requires it.
     }
     //endregion
 }
