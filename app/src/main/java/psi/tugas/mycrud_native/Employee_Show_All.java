@@ -1,5 +1,6 @@
 package psi.tugas.mycrud_native;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -107,7 +108,11 @@ public class Employee_Show_All extends AppCompatActivity implements ListView.OnI
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
     {
-
+        Intent intent = new Intent(this, Employee_Show.class);
+        HashMap<String, String> map = (HashMap<String, String>) adapterView.getItemAtPosition(i);
+        String id = map.get(Cfg_Pegawai.ID);
+        intent.putExtra(Cfg_Pegawai.TAG_ID, id);
+        startActivity(intent);
     }
     //endregion
 }

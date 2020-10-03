@@ -6,4 +6,7 @@
     <string name="tambah_pegawai">Tambah Pegawai</string>
     <string name="daftar_pegawai">Daftar Pegawai</string>
     <string name="data_jabatan">Data Jabatan</string>
+    <string name="id_pegawai">ID Pegawai</string>
+    <string name="update_pegawai">Update Pegawai</string>
+    <string name="hapus_pegawai">Hapus Pegawai</string>
 </resources>
