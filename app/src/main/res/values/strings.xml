@@ -9,4 +9,6 @@
     <string name="id_pegawai">ID Pegawai</string>
     <string name="update_pegawai">Update Pegawai</string>
     <string name="hapus_pegawai">Hapus Pegawai</string>
+    <string name="tambah_posisi">Tambah Posisi</string>
+    <string name="daftar_posisi">Daftar Posisi</string>
 </resources>

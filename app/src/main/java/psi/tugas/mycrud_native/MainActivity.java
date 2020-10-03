@@ -214,6 +214,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             addEmployee();
         else if (view == button_View)
             startActivity(new Intent(this, Employee_Show_All.class));
+        else if (view == button_List_Pos)
+            startActivity(new Intent(this, MainActivity_Position.class));
     }
 
     @Override
