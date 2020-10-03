@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onNothingSelected(AdapterView<?> adapterView)
     {
-        //The interface requires it.
+        //The interface requires it. No further implementation needed.
     }
     //endregion
 }

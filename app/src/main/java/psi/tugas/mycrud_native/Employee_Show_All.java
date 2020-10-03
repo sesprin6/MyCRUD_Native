@@ -34,8 +34,6 @@ public class Employee_Show_All extends AppCompatActivity implements ListView.OnI
 
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(this);
-
-        getJSON();
     }
 
     //region Methods
@@ -103,6 +101,7 @@ public class Employee_Show_All extends AppCompatActivity implements ListView.OnI
     protected void onResume()
     {
         super.onResume();
+        getJSON();
     }
 
     @Override

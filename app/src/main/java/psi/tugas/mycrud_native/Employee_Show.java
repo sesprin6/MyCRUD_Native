@@ -1,5 +1,6 @@
 package psi.tugas.mycrud_native;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mycrud.library.Cfg_Pegawai;
@@ -29,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Employee_Show extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener
@@ -191,13 +194,117 @@ public class Employee_Show extends AppCompatActivity implements View.OnClickList
 
         new Task().execute();
     }
+
+    @SuppressWarnings("deprecation")
+    private void updateEmployee()
+    {
+        final String id = editText_Id.getText().toString();
+        final String name = editText_Name.getText().toString();
+        final String position = spinner_Position.getSelectedItem().toString();
+        final String salary = editText_Salary.getText().toString();
+
+        class Task extends AsyncTask<Void, Void, String>
+        {
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                GlobalUtils.GProgressDialog.show(Employee_Show.this, "Memperbarui data", "Mohon tunggu...");
+            }
+
+            @Override
+            protected String doInBackground(Void... voids)
+            {
+                HashMap<String, String> map = new HashMap<>();
+                map.put(Cfg_Pegawai.ID, id);
+                map.put(Cfg_Pegawai.NAME, name);
+                map.put(Cfg_Pegawai.POSITION, position);
+                map.put(Cfg_Pegawai.SALARY, salary);
+
+                return RequestHandler.sendPostRequest(Cfg_Pegawai.URL_UPDATE, map);
+            }
+
+            @Override
+            protected void onPostExecute(String s)
+            {
+                super.onPostExecute(s);
+                GlobalUtils.GProgressDialog.dismiss();
+                GlobalUtils.GToast.show(Employee_Show.this, s);
+                finish();
+            }
+        }
+
+        new Task().execute();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void deleteEmployee()
+    {
+        class Task extends AsyncTask<Void, Void, String>
+        {
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                GlobalUtils.GProgressDialog.show(Employee_Show.this, "Menghapus data", "Mohon tunggu...");
+            }
+
+            @Override
+            protected String doInBackground(Void... voids)
+            {
+                return RequestHandler.sendGetRequest(Cfg_Pegawai.URL_DELETE + editText_Id.getText());
+            }
+
+            @Override
+            protected void onPostExecute(String s)
+            {
+                super.onPostExecute(s);
+                GlobalUtils.GProgressDialog.dismiss();
+                GlobalUtils.GToast.show(Employee_Show.this, s);
+                finish();
+            }
+        }
+
+        new Task().execute();
+    }
+
+    private void confirmDeleteEmployee()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Apakah Anda yakin ingin menghapus pegawai ini?");
+
+        builder.setPositiveButton("Ya",
+                new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        deleteEmployee();
+                    }
+                });
+        builder.setNegativeButton("Tidak",
+                new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     //endregion
 
     //region Events
     @Override
     public void onClick(View view)
     {
-
+        if (view == button_Update)
+            updateEmployee();
+        else if (view == button_Delete)
+            confirmDeleteEmployee();
     }
 
     @SuppressWarnings("deprecation")
@@ -248,7 +355,7 @@ public class Employee_Show extends AppCompatActivity implements View.OnClickList
     @Override
     public void onNothingSelected(AdapterView<?> adapterView)
     {
-
+        //The interface requires it. No further implementation needed.
     }
     //endregion
 }
